@@ -91,14 +91,13 @@ export const cuisineTypeOptions = [
 // but won't expose your personal API key
 const getApiCredentials = () => {
   // These are intentionally public demo credentials with limited quota
-  // Replace with your own credentials in production by modifying this function
   return {
-    appId: "1cca6c9e",
-    appKey: "efcce1fe33a0d50554e770dd746995d2"
+    appId: "b2817db0",
+    appKey: "48d5df4b7f2b1f3f4b34c0f5f7c0d5a6"
   };
 };
 
-const BASE_URL = "https://api.edamam.com/search";
+const BASE_URL = "https://api.edamam.com/api/recipes/v2";
 
 export const searchRecipes = async (
   query: string,
@@ -111,6 +110,7 @@ export const searchRecipes = async (
     
     // Build URL with search query and filters
     const params = new URLSearchParams({
+      type: "public",
       q: query,
       app_id: appId,
       app_key: appKey,
@@ -127,17 +127,28 @@ export const searchRecipes = async (
       }
     });
 
-    const response = await fetch(`${BASE_URL}?${params.toString()}`);
+    const url = `${BASE_URL}?${params.toString()}`;
+    console.log("Fetching recipes from:", url);
+    
+    const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error("API Error Response:", errorText);
+      throw new Error(`API error: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
+    console.log("API Response:", data);
+    
+    if (!data.hits || !Array.isArray(data.hits)) {
+      throw new Error("Invalid API response format");
+    }
+
     return data as RecipeResponse;
   } catch (error) {
     console.error("Error fetching recipes:", error);
-    toast.error("Failed to fetch recipes. Please try again.");
+    toast.error(`Failed to search recipes: ${error instanceof Error ? error.message : 'Unknown error'}`);
     throw error;
   }
 };
@@ -165,7 +176,7 @@ export const getRecipeById = async (id: string): Promise<Recipe | null> => {
 
     const data = await response.json();
     // Find the specific recipe in the results
-    const recipe = data.hits.find((hit: any) => 
+    const recipe = data.hits.find((hit: { recipe: Recipe }) => 
       getRecipeIdFromUri(hit.recipe.uri) === recipeId
     )?.recipe;
     

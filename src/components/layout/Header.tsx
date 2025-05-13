@@ -7,7 +7,6 @@ import { SearchFilters } from "@/services/recipeService";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import FavoritesView from "@/components/FavoritesView";
 import { useFavorites } from "@/components/FavoritesProvider";
-import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   query: string;
@@ -30,7 +29,7 @@ const Header = ({
 
   return (
     <header className="border-b border-white/10 bg-background/80 backdrop-blur-md sticky top-0 z-20 transition-all shadow-lg">
-      <div className="container py-4 px-4 md:px-6 max-w-7xl">
+      <div className="container mx-auto py-4 px-4 md:px-6 max-w-7xl">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <div className="bg-purple-500/10 p-2 rounded-full">
