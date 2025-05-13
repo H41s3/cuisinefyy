@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-    base: "/Cuisinefy/", // GitHub Pages repository name with correct capitalization
+    base: "/cuisinefyy/", // GitHub Pages repository name with correct capitalization
     server: {
         host: "::",
         port: 8080,
