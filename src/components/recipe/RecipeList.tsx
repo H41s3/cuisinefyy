@@ -33,19 +33,10 @@ const RecipeList = ({ recipes, sortOption, onSortChange }: RecipeListProps) => {
         {recipes.map((recipe, index) => (
           <div 
             key={recipe.uri} 
-            className={cn(
-              "opacity-0",
-              "animate-slide-up",
-              {
-                "animation-delay-0": index % 4 === 0,
-                "animation-delay-[100ms]": index % 4 === 1,
-                "animation-delay-[200ms]": index % 4 === 2,
-                "animation-delay-[300ms]": index % 4 === 3,
-              }
-            )}
+            className="animate-fade-in"
             style={{
               animationFillMode: "forwards",
-              animationDelay: `${(index % 4) * 100}ms`,
+              animationDelay: `${index * 100}ms`,
             }}
           >
             <RecipeCard recipe={recipe} />

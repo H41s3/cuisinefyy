@@ -86,14 +86,28 @@ export const cuisineTypeOptions = [
   { value: "middle eastern", label: "Middle Eastern" },
 ];
 
-// Get API credentials - using public-friendly pattern
-// This uses embedded demo credentials that work with limited rate
-// but won't expose your personal API key
+// Get API credentials from environment variables
 const getApiCredentials = () => {
-  // These are intentionally public demo credentials with limited quota
+  const appId = import.meta.env.VITE_EDAMAM_APP_ID;
+  const appKey = import.meta.env.VITE_EDAMAM_APP_KEY;
+  
+  console.log("Environment variables:", {
+    appId: appId ? "Set" : "Not set",
+    appKey: appKey ? "Set" : "Not set",
+    appIdValue: appId?.substring(0, 8) + "...",
+    appKeyValue: appKey?.substring(0, 8) + "..."
+  });
+  
+  if (!appId || !appKey) {
+    throw new Error(
+      "Missing Edamam API credentials. Please set VITE_EDAMAM_APP_ID and VITE_EDAMAM_APP_KEY in your .env file. " +
+      "Get free credentials from: https://developer.edamam.com/edamam-recipe-api"
+    );
+  }
+  
   return {
-    appId: "b2817db0",
-    appKey: "48d5df4b7f2b1f3f4b34c0f5f7c0d5a6"
+    appId,
+    appKey
   };
 };
 
@@ -106,6 +120,7 @@ export const searchRecipes = async (
   to = 20
 ): Promise<RecipeResponse> => {
   try {
+    console.log("Starting search with query:", query);
     const { appId, appKey } = getApiCredentials();
     
     // Build URL with search query and filters
@@ -129,8 +144,16 @@ export const searchRecipes = async (
 
     const url = `${BASE_URL}?${params.toString()}`;
     console.log("Fetching recipes from:", url);
+    console.log("Request parameters:", Object.fromEntries(params.entries()));
     
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        'Edamam-Account-User': '0', // Default user ID required by the API
+      },
+    });
+    
+    console.log("Response status:", response.status);
+    console.log("Response headers:", Object.fromEntries(response.headers.entries()));
     
     if (!response.ok) {
       const errorText = await response.text();
@@ -142,9 +165,11 @@ export const searchRecipes = async (
     console.log("API Response:", data);
     
     if (!data.hits || !Array.isArray(data.hits)) {
+      console.error("Invalid response format:", data);
       throw new Error("Invalid API response format");
     }
 
+    console.log(`Successfully found ${data.hits.length} recipes`);
     return data as RecipeResponse;
   } catch (error) {
     console.error("Error fetching recipes:", error);
@@ -159,16 +184,20 @@ export const getRecipeById = async (id: string): Promise<Recipe | null> => {
     const { appId, appKey } = getApiCredentials();
     
     // For the search API, we need to re-query and find the recipe by ID
-    // This is different from the recipes/v2 endpoint which has a direct ID lookup
     const recipeId = id.replace("http://www.edamam.com/ontologies/edamam.owl#recipe_", "");
     
     const params = new URLSearchParams({
+      type: "public",
       app_id: appId,
       app_key: appKey,
       q: recipeId,
     });
 
-    const response = await fetch(`${BASE_URL}?${params.toString()}`);
+    const response = await fetch(`${BASE_URL}?${params.toString()}`, {
+      headers: {
+        'Edamam-Account-User': '0', // Default user ID required by the API
+      },
+    });
     
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);

@@ -11,11 +11,17 @@ npm install
 ```
 
 3. Set up your Edamam API credentials:
-   - Sign up for a free account at [Edamam](https://www.edamam.com/)
+   - Sign up for a free account at [Edamam](https://developer.edamam.com/edamam-recipe-api)
    - Get your APP_ID and APP_KEY from the Recipe Search API
-   - Create a `.env` file in the root directory
-   - Copy the contents of `.env.example` to `.env`
-   - Replace the placeholder values with your actual API credentials
+   - Copy `.env.example` to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edit `.env` and replace the placeholder values with your actual API credentials:
+     ```
+     VITE_EDAMAM_APP_ID=your_actual_app_id
+     VITE_EDAMAM_APP_KEY=your_actual_app_key
+     ```
 
 4. Start the development server:
 ```bash

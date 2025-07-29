@@ -150,6 +150,28 @@
   }
 }
 
+/* Animation fallbacks */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0; /* Start invisible */
+}
+
+/* Ensure cards are visible after animation */
+.animate-fade-in {
+  opacity: 1 !important;
+}
+
 /* SF Pro Font Loading */
 @font-face {
   font-family: 'SF Pro Display';
