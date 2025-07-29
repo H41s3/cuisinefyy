@@ -15,7 +15,7 @@ const NutritionTab = ({ recipe }: NutritionTabProps) => {
         </p>
       </div>
       
-      <div className="h-64 overflow-y-auto border rounded-lg p-4">
+      <div className="h-64 overflow-y-auto border rounded-lg p-4 bg-muted/20">
         <div className="space-y-3">
           {Object.entries(recipe.totalNutrients)
             .filter(([key]) => [
@@ -24,7 +24,7 @@ const NutritionTab = ({ recipe }: NutritionTabProps) => {
             .map(([key, nutrient]) => {
               const perServing = nutrient.quantity / recipe.yield;
               return (
-                <div key={key} className="flex justify-between py-2 border-b border-border/50">
+                <div key={key} className="flex justify-between py-2 border-b border-border/50 last:border-b-0">
                   <span className="text-sm">{nutrient.label}</span>
                   <span className="text-sm font-medium">
                     {Math.round(perServing)} {nutrient.unit}

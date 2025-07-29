@@ -23,7 +23,7 @@ const DetailsTab = ({ recipe }: DetailsTabProps) => {
         </p>
       </div>
       
-      <div className="h-64 overflow-y-auto border rounded-lg p-4">
+      <div className="h-64 overflow-y-auto border rounded-lg p-4 bg-muted/20">
         <div className="space-y-4">
           {recipe.dietLabels.length > 0 && (
             <div>
