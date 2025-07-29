@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-    base: "/cuisinefyy/", // GitHub Pages repository name with correct capitalization
+    base: process.env.NETLIFY ? "/" : "/cuisinefyy/", // Use root path for Netlify, repository path for GitHub Pages
     server: {
         host: "::",
         port: 8080,
