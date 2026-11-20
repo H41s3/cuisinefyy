@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-white/20 py-6 text-sm bg-gradient-to-b from-background to-purple-950/90 dark:text-muted-foreground text-slate-100">
+    <footer className="border-t border-white/20 py-6 text-sm bg-gradient-to-b from-background to-purple-100 dark:to-purple-950/90 text-slate-700 dark:text-muted-foreground">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl flex justify-center">
         <div className="flex items-center gap-1">
           <Utensils className="h-4 w-4 text-purple-500" />

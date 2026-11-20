@@ -34,6 +34,15 @@
 </head>
 
 <body>
+    <!-- Set the theme class before React loads so the page never flashes the wrong theme -->
+    <script>
+        try {
+            var t = localStorage.getItem("theme");
+            document.documentElement.classList.add(t === "light" ? "light" : "dark");
+        } catch (e) {
+            document.documentElement.classList.add("dark");
+        }
+    </script>
     <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>

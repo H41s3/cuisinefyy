@@ -15,7 +15,7 @@ const baseUrl = import.meta.env.BASE_URL || '/';
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="light">
+    <ThemeProvider defaultTheme="dark">
       <FavoritesProvider>
         <TooltipProvider>
           <Toaster />

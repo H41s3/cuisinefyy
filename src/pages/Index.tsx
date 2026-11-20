@@ -168,7 +168,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-purple-950/30 to-purple-900/20 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-50 via-white to-fuchsia-50 dark:from-background dark:via-purple-950/30 dark:to-purple-900/20">
       <Header 
         query={query}
         filters={filters}

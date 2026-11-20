@@ -136,6 +136,11 @@
   .glass-morphism {
     @apply backdrop-blur-xl bg-white/5 border border-white/20 rounded-lg shadow-lg;
   }
+
+  /* Light theme: a faint white glass is invisible on a white page, so make it solid */
+  .light .glass-morphism {
+    @apply bg-white/80 border-purple-200;
+  }
   
   .neo-blur {
     @apply backdrop-blur-2xl bg-black/40 border border-white/10;
