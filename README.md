@@ -4,6 +4,8 @@ A recipe finder built with React, TypeScript and Tailwind CSS. Search by ingredi
 
 **Live:** [cu1sinefy.netlify.app](https://cu1sinefy.netlify.app)
 
+![Cuisinefy home page](docs/screenshot.png)
+
 ## Features
 
 - Search recipes by ingredients, cuisine or dietary needs
